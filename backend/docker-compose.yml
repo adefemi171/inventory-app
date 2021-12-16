@@ -1,0 +1,25 @@
+version: '3'
+services:
+
+  postgres:
+    # For more details on configuring the Postgres Docker image, see:
+    #   https://hub.docker.com/_/postgres/
+    image: postgres:10.3-alpine #light weight 
+
+    # Expose the default Postgres port on localhost
+    ports:
+      - '5432:5432'
+      # allow connections from the host machine
+      # an instance of the postgres image = postgres_docker(container)
+    network_mode: bridge # port available on localhost 
+    container_name: postgres_docker
+
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'pgpass'
+      POSTGRES_DB: 'postgres'
+
+    # Copy files from dbinit into the image so that they will be run on boot
+    # mount db
+    volumes:
+      - ./initdb:/docker-entrypoint-initdb.d
