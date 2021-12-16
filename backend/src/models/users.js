@@ -11,13 +11,13 @@ module.exports = {
 
             connection.query(qemail, (err, result)=>{
                 console.log(err)
-                if(result.length > 0){
+                if(result && !!result.length){
                     reject(err),
                     console.log(err)
                 }
                 else{
                     connection.query(qusername, (err, result)=>{
-                        if(result.length > 0){
+                        if( result&& !!result.length ){
                             reject(err)
                         }else{
                             connection.query(regis, (err, result)=>{
